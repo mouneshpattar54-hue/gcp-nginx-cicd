@@ -1,0 +1,17 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build Nginx image'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/gomu0529/nginx-images/nginx-web:$BUILD_ID'
+      - '.'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push image to Artifact Registry'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/gomu0529/nginx-images/nginx-web:$BUILD_ID'
+
+images:
+  - 'us-central1-docker.pkg.dev/gomu0529/nginx-images/nginx-web:$BUILD_ID'
